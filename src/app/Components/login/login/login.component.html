@@ -1,0 +1,37 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4" style="width: 400px;">
+      <h2 class="text-center mb-3">Login</h2>
+      
+      <form (ngSubmit)="Login()" #loginform="ngForm">
+        <div class="mb-3">
+          <label for="FormControlInput1" class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="example@gmail.com" 
+                 name="email" #inpemail="ngModel" required [(ngModel)]="user.email" 
+                 pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+          <div [hidden]="inpemail.valid || !inpemail.touched" class="text-danger">
+            <small *ngIf="inpemail.errors?.['required']">Email is required</small>
+            <small *ngIf="inpemail.errors?.['pattern']">Invalid email format</small>
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="FormControlInput2" class="form-label">Password</label>
+          <input type="password" class="form-control" placeholder="Enter your password" 
+                 name="password" #inppass="ngModel" required [(ngModel)]="user.password">
+          <div [hidden]="inppass.valid || !inppass.touched" class="text-danger">
+            <small>Password is required</small>
+          </div>
+        </div>
+  
+        <div class="mb-3 d-grid">
+          <button class="btn btn-primary" [disabled]="loginform.invalid">Login</button>
+        </div>
+  
+        <p class="text-center">
+          Don't have an account? 
+          <a (click)="navigateToSignUp()" class="text-primary text-decoration-none">Sign Up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  

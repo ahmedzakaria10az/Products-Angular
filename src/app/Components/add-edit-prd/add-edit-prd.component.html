@@ -1,0 +1,84 @@
+<div class="container py-4">
+    <h2 class="mb-4">{{ id ? 'Edit Product' : 'Add New Product' }}</h2>
+    
+    <form (ngSubmit)="id ? Edit() : Add()" class="card p-3 shadow">
+      <div class="mb-3">
+        <label class="form-label">Product Title</label>
+        <input type="text" 
+               class="form-control" 
+               [(ngModel)]="newPrd.title" 
+               name="title" 
+               required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" 
+                  rows="3" 
+                  [(ngModel)]="newPrd.description" 
+                  name="description"></textarea>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select class="form-select" 
+                [(ngModel)]="newPrd.category" 
+                name="category">
+          <option value="beauty">Beauty</option>
+          <option value="groceries">Groceries</option>
+          <option value="fragrances">Fragrances</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number" 
+               class="form-control" 
+               [(ngModel)]="newPrd.price" 
+               name="price" 
+               step="0.01" 
+               required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Stock Quantity</label>
+        <input type="number" 
+               class="form-control" 
+               [(ngModel)]="newPrd.stock" 
+               name="stock" 
+               required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Thumbnail URL</label>
+        <input type="text" 
+               class="form-control" 
+               [(ngModel)]="newPrd.thumbnail" 
+               name="thumbnail" 
+               placeholder="https://example.com/image.png"
+               required>
+        
+        @if (newPrd.thumbnail) {
+          <div class="mt-2">
+            <label class="form-text">Preview:</label>
+            <img [src]="newPrd.thumbnail" 
+                 alt="Thumbnail preview" 
+                 class="img-thumbnail mt-2"
+                 style="max-height: 200px">
+          </div>
+        }
+      </div>
+  
+      <div class="d-flex gap-2 justify-content-end">
+        <button type="button" 
+                class="btn btn-outline-secondary" 
+                routerLink="/shop">
+          Cancel
+        </button>
+        <button type="submit" 
+                class="btn btn-primary">
+          {{ id ? 'Update' : 'Create' }} Product
+        </button>
+      </div>
+    </form>
+  </div>

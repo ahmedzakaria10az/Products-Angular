@@ -1,0 +1,12 @@
+<h1>Products</h1>
+
+<select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCategory">
+    @for(cat of catList;track cat){
+        <option value="{{cat.name}}">{{cat.name}}</option>
+    }
+  </select>
+
+  <hr>
+<app-products [selectedCategory]="selectedCategory" (Total)="TotalPrice($event)"></app-products>
+<hr>
+<h1>Total Price : {{TotalProductsPrice}}</h1>

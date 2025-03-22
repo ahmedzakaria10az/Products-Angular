@@ -1,0 +1,46 @@
+.product-page {
+    gap: 20px;
+    padding: 20px;
+    display: flex;
+    justify-items: center;
+    width: 100%;
+}
+
+.product-image img {
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+.product-details {
+    max-width: 400px;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.stock {
+    font-weight: bold;
+}
+
+.in-stock {
+    color: green;
+}
+
+.out-of-stock {
+    color: red;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

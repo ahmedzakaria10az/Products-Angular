@@ -1,0 +1,165 @@
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="assets/favicon.ico" alt="" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link active link-light"
+            aria-current="page"
+            routerLink="/"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/">Login</a>
+      </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/products">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/slider">Slider</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/shop">Shopping</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/addedit">Add New Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/signup">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" routerLink="/dashboard">Dashboard</a>
+        </li>
+      </ul>
+     
+      <button
+        class="btn btn-primary"
+        type="button"
+        data-bs-toggle="offcanvas"
+        [attr.data-bs-target]="'#staticBackdrop'"
+      >
+        Add Product
+      </button>
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  [attr.id]="'staticBackdrop'"
+  [attr.aria-labelledby]="'staticBackdropLabel'"
+>
+  <div class="offcanvas-body">
+    <form (ngSubmit)="addProduct()">
+      <div class="mb-3">
+        <label class="form-label">Product ID</label>
+        <input type="text" class="form-control" [value]="product.id" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="product.title"
+          name="title"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          [(ngModel)]="product.description"
+          name="description"
+        ></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="product.price"
+          name="price"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select
+          class="form-control"
+          [(ngModel)]="product.category"
+          name="category"
+          required
+        >
+          <option value="" disabled selected>Select a category</option>
+          <option value="Beauty">Beauty</option>
+          <option value="Fragrances">Fragrances</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Groceries">Groceries</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <input
+          type="url"
+          class="form-control"
+          [(ngModel)]="product.thumbnail"
+          name="image"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Stock</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="product.stock"
+          name="stock"
+          required
+          min="1"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        data-bs-dismiss="offcanvas"
+      >
+        Save Changes
+      </button>
+    </form>
+  </div>
+</div>

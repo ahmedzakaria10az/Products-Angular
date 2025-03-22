@@ -1,0 +1,85 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="container mt-4">
+
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="fullName" formControlName="fullName" placeholder="Full Name">
+        <label for="firstName">Full Name</label>
+        @if (fullName?.touched && fullName?.invalid) {
+            <div class="text-danger">
+                @if(fullName?.errors?.['required']){
+                    <small>Full name is required</small>
+                }
+                @if(fullName?.errors?.['pattern']){
+                    <small>Full name must contain at least 2 letters</small>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com">
+        <label for="email">Email address</label>
+        @if (email?.touched && email?.invalid) {
+            <div class="text-danger">
+                @if(email?.errors?.['required']){
+                    <small>Email is required</small>
+                }
+                @if(email?.errors?.['email']){
+                    <small>Please enter a valid email address</small>
+                }
+               
+            </div>
+        }
+        @if(signupForm.errors?.['EmailExists']){
+            <small class="text-danger">Email already exists</small>
+        }
+        
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="tel" class="form-control" id="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number">
+        <label for="phoneNumber">Phone Number</label>
+        @if (phoneNumber?.touched && phoneNumber?.invalid) {
+            <div class="text-danger">
+                @if(phoneNumber?.errors?.['required']){
+                    <small>Phone number is required</small>
+                }
+                @if(phoneNumber?.errors?.['pattern']){
+                    <small>Please enter a valid 10-digit phone number</small>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+        <label for="password">Password</label>
+        @if (password?.touched && password?.invalid) {
+            <div class="text-danger">
+                @if(password?.errors?.['required']){
+                    <small>Password is required</small>
+                }
+                @if(password?.errors?.['minlength']){
+                    <small>Password must be at least 8 characters long</small>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="confirmedpassword" formControlName="confirmedpassword"
+            placeholder="Confirm Password">
+        <label for="confirmedpassword">Confirm Password</label>
+        @if ((confirmedpassword?.touched && password?.touched) && (signupForm.errors?.['UnMatchedPass'] || confirmedpassword?.invalid)) {
+            <div class="text-danger">
+                @if(confirmedpassword?.errors?.['required']){
+                    <small>Please confirm your password</small>
+                }
+                @if(signupForm.errors?.['UnMatchedPass']){
+                    <small>Passwords do not match</small>
+                }
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="signupForm.invalid">Sign Up</button>
+</form>

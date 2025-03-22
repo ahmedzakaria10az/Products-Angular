@@ -1,0 +1,14 @@
+<div class="card m-3 p-3">
+    <h3>User Details</h3>
+    @if (user) {
+      <div class="mb-2">
+        <strong>Name:</strong> {{ user.fullName }}
+      </div>
+      <div class="mb-2">
+        <strong>Email:</strong> {{ user.email }}
+      </div>
+      <div class="mb-2">
+        <strong>Phone:</strong> {{ user.phoneNumber }}
+      </div>
+    }
+  </div>

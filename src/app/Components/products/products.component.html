@@ -1,0 +1,161 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of filteredProducts">
+      <div class="card p-3" appHoverShadow>
+        <img
+          [src]="product.thumbnail"
+          class="card-img-top"
+          alt="{{ product.title }}" />
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <p class="card-text text-muted">{{ product.category }}</p>
+          <p class="card-text">{{ product.description | shorten : 3 }}</p>
+          <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+          <p class="card-text">
+            <span class="badge bg-danger" *ngIf="product.stock === 0">Out of
+              Stock</span>
+            <span class="badge bg-warning" *ngIf="product.stock === 1">Last
+              Item</span>
+            <span class="badge bg-success" *ngIf="product.stock > 1">{{
+              product.stock }} in stock</span>
+          </p>
+          <div class="d-flex align-items-center gap-2">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="decrementQuantity(quantityInput)"
+              [disabled]="product.stock === 0">
+              -
+            </button>
+            <input
+              #quantityInput
+              type="number"
+              class="form-control text-center"
+              [value]="1"
+              readonly
+              [max]="product.stock"
+              [disabled]="product.stock === 0" />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="incrementQuantity(quantityInput, product.stock)"
+              [disabled]="product.stock === 0">
+              +
+            </button>
+          </div>
+          <hr />
+          <app-buy-button
+            [product]="product"
+            [quantity]="+quantityInput.value"
+            [disabled]="product.stock === 0"
+            (purchase)="Buy($event.quantity, $event.product)"></app-buy-button>
+          <a [routerLink]="['/products', product.id]">See details</a>
+          <button class="btn btn-danger" (click)="deleteProduct(product.id)">
+            Delete
+          </button>
+
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            [attr.data-bs-target]="'#staticBackdrop' + product.id">
+            Edit
+          </button>
+        </div>
+      </div>
+      <div
+        class="offcanvas offcanvas-start"
+        tabindex="-1"
+        [attr.id]="'staticBackdrop' + product.id"
+        [attr.aria-labelledby]="'staticBackdropLabel' + product.id">
+        <div class="offcanvas-body">
+          <form (ngSubmit)="saveChanges(product)">
+            <div class="mb-3">
+              <label class="form-label">Product ID</label>
+              <input
+                type="text"
+                class="form-control"
+                [value]="product.id"
+                disabled
+              />
+            </div>
+    
+            <div class="mb-3">        
+              <label class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="product.title"
+                name="title"
+                required />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                [(ngModel)]="product.description"
+                name="description"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="product.price"
+                name="price"
+                required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Category</label>
+              <select
+                class="form-control"
+                [(ngModel)]="product.category"
+                name="category"
+                required
+              >
+                <option value="" disabled selected>Select a category</option>
+                <option value="Beauty">Beauty</option>
+                <option value="Fragrances">Fragrances</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Groceries">Groceries</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Image URL</label>
+              <input
+                type="url"
+                class="form-control"
+                [(ngModel)]="product.thumbnail"
+                name="image"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Stock</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="product.stock"
+                name="stock"
+                required
+                min="1"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-success w-100"
+              data-bs-dismiss="offcanvas">
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
